@@ -1,0 +1,9 @@
+/Debug/
+/Release/
+.mxproject
+.vscode
+cmake/
+/.settings/
+*.launch
+*.lnk
+build/
