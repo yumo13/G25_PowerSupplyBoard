@@ -49,11 +49,14 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/cpp_main.cpp
+    Core/Components/LED/RgbLed.cpp
+    Core/Components/LED/LedTest.cpp
     # Add user sources here
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    Core/Components/LED
     # Add user defined include paths
 )
 
