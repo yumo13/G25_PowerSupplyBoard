@@ -4,14 +4,11 @@ extern "C" {
 #include "tim.h"
 }
 
-RgbLed::RgbLed(TIM_HandleTypeDef *htim)
-    : htim_(htim), red_channel_(TIM_CHANNEL_4), green_channel_(TIM_CHANNEL_2), blue_channel_(TIM_CHANNEL_1),
-      pwm_max_value_(1000) {}
+uint32_t RgbLed::getPwmMaxValue(const TIM_HandleTypeDef *htim) { return static_cast<uint32_t>(htim->Init.Period) + 1U; }
 
-RgbLed::RgbLed(TIM_HandleTypeDef *htim, uint32_t red_channel, uint32_t green_channel, uint32_t blue_channel,
-               uint32_t pwm_max_value)
+RgbLed::RgbLed(TIM_HandleTypeDef *htim, uint32_t red_channel, uint32_t green_channel, uint32_t blue_channel)
     : htim_(htim), red_channel_(red_channel), green_channel_(green_channel), blue_channel_(blue_channel),
-      pwm_max_value_(pwm_max_value) {}
+      pwm_max_value_(getPwmMaxValue(htim)) {}
 
 void RgbLed::init() {
     HAL_TIM_PWM_Start(htim_, red_channel_);

@@ -7,12 +7,7 @@
 // PWM制御のRGB LEDドライバ（アクティブロー）
 class RgbLed {
 public:
-    // デフォルト配線: TIM3 CH4/CH2/CH1、最大デューティ1000
-    RgbLed(TIM_HandleTypeDef *htim);
-
-    // チャンネル割り当てとPWM分解能を指定
-    RgbLed(TIM_HandleTypeDef *htim, uint32_t red_channel, uint32_t green_channel, uint32_t blue_channel,
-           uint32_t pwm_max_value = 1000);
+    RgbLed(TIM_HandleTypeDef *htim, uint32_t red_channel, uint32_t green_channel, uint32_t blue_channel);
 
     // PWM出力開始しLEDを消灯状態にする
     void init();
@@ -24,6 +19,8 @@ public:
     void turnOff();
 
 private:
+    static uint32_t getPwmMaxValue(const TIM_HandleTypeDef *htim);
+
     TIM_HandleTypeDef *htim_;
     const uint32_t red_channel_;
     const uint32_t green_channel_;

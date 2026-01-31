@@ -9,7 +9,7 @@ extern TIM_HandleTypeDef htim3;
 extern CAN_HandleTypeDef hcan;
 
 void cpp_main(void) {
-    RgbLed led(&htim3);
+    RgbLed led(&htim3, TIM_CHANNEL_4, TIM_CHANNEL_2, TIM_CHANNEL_1);
     led.init();
 
     // CANコントローラ初期化
