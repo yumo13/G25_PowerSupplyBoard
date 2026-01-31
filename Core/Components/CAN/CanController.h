@@ -1,22 +1,20 @@
 #ifndef CAN_CONTROLLER_H
 #define CAN_CONTROLLER_H
 
-#include "main.h"
 #include "can.h"
-#include <vector>
+#include "main.h"
 #include <cstdint>
-#include <queue>
 #include <functional>
 #include <map>
+#include <queue>
+#include <vector>
 
-enum class CanIdType
-{
+enum class CanIdType {
     STANDARD = 0, // 11-bit ID (0x000 - 0x7FF)
     EXTENDED = 1  // 29-bit ID (0x00000000 - 0x1FFFFFFF)
 };
 
-struct CanMessage
-{
+struct CanMessage {
     uint32_t id;
     std::vector<uint8_t> data;
     CanIdType idType = CanIdType::STANDARD;
@@ -33,8 +31,7 @@ struct CanMessage
 using CanMessageHandler = std::function<void(const CanMessage &message)>;
 using CanErrorHandler = std::function<void(uint32_t errorCode)>;
 
-class CanController
-{
+class CanController {
 public:
     // シングルトンパターン
     static CanController &getInstance();
@@ -92,17 +89,16 @@ private:
 };
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
-    // HALコールバック関数
-    void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
-    void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan);
-    void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan);
-    void HAL_CAN_TxMailbox1CompleteCallback(CAN_HandleTypeDef *hcan);
-    void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan);
-    void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan);
+// HALコールバック関数
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan);
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan);
+void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan);
+void HAL_CAN_TxMailbox1CompleteCallback(CAN_HandleTypeDef *hcan);
+void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan);
+void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan);
 
 #ifdef __cplusplus
 }

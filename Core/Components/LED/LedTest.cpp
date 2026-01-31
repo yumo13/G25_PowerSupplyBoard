@@ -1,8 +1,7 @@
 #include "LedTest.h"
 #include <math.h>
 
-void hsvToRgb(float h, float s, float v, uint8_t *r, uint8_t *g, uint8_t *b)
-{
+void hsvToRgb(float h, float s, float v, uint8_t *r, uint8_t *g, uint8_t *b) {
     int i = (int)(h / 60.0f) % 6;
     float f = (h / 60.0f) - i;
     float p = v * (1.0f - s);
@@ -11,8 +10,7 @@ void hsvToRgb(float h, float s, float v, uint8_t *r, uint8_t *g, uint8_t *b)
 
     float red, green, blue;
 
-    switch (i)
-    {
+    switch (i) {
     case 0:
         red = v;
         green = t;
@@ -55,8 +53,7 @@ void hsvToRgb(float h, float s, float v, uint8_t *r, uint8_t *g, uint8_t *b)
     *b = (uint8_t)(blue * 255.0f);
 }
 
-void testLedBasicColors(RgbLed &led)
-{
+void testLedBasicColors(RgbLed &led) {
     led.setColor(255, 0, 0);
     HAL_Delay(1000);
 
@@ -70,55 +67,45 @@ void testLedBasicColors(RgbLed &led)
     HAL_Delay(500);
 }
 
-void testLedFade(RgbLed &led)
-{
+void testLedFade(RgbLed &led) {
     const int delay_ms = 5;
 
-    for (int i = 0; i <= 255; ++i)
-    {
+    for (int i = 0; i <= 255; ++i) {
         led.setColor(i, 0, 0);
         HAL_Delay(delay_ms);
     }
 
-    for (int i = 255; i >= 0; --i)
-    {
+    for (int i = 255; i >= 0; --i) {
         led.setColor(i, 0, 0);
         HAL_Delay(delay_ms);
     }
 
-    for (int i = 0; i <= 255; ++i)
-    {
+    for (int i = 0; i <= 255; ++i) {
         led.setColor(0, i, 0);
         HAL_Delay(delay_ms);
     }
 
-    for (int i = 255; i >= 0; --i)
-    {
+    for (int i = 255; i >= 0; --i) {
         led.setColor(0, i, 0);
         HAL_Delay(delay_ms);
     }
 
-    for (int i = 0; i <= 255; ++i)
-    {
+    for (int i = 0; i <= 255; ++i) {
         led.setColor(0, 0, i);
         HAL_Delay(delay_ms);
     }
 
-    for (int i = 255; i >= 0; --i)
-    {
+    for (int i = 255; i >= 0; --i) {
         led.setColor(0, 0, i);
         HAL_Delay(delay_ms);
     }
 }
 
-void testLedRainbow(RgbLed &led)
-{
+void testLedRainbow(RgbLed &led) {
     const int delay_ms = 25;
 
-    for (int cycle = 0; cycle < 3; ++cycle)
-    {
-        for (float hue = 0.0f; hue < 360.0f; hue += 2.0f)
-        {
+    for (int cycle = 0; cycle < 3; ++cycle) {
+        for (float hue = 0.0f; hue < 360.0f; hue += 2.0f) {
             uint8_t r, g, b;
             hsvToRgb(hue, 1.0f, 1.0f, &r, &g, &b);
             led.setColor(r, g, b);
@@ -127,8 +114,7 @@ void testLedRainbow(RgbLed &led)
     }
 }
 
-void testLedAll(RgbLed &led)
-{
+void testLedAll(RgbLed &led) {
     testLedBasicColors(led);
     testLedFade(led);
     testLedRainbow(led);

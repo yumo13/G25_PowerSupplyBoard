@@ -4,15 +4,11 @@
 #include "main.h"
 #include "tim.h"
 
-class RgbLed
-{
+class RgbLed {
 public:
     RgbLed(TIM_HandleTypeDef *htim);
 
-    RgbLed(TIM_HandleTypeDef *htim,
-           uint32_t red_channel,
-           uint32_t green_channel,
-           uint32_t blue_channel,
+    RgbLed(TIM_HandleTypeDef *htim, uint32_t red_channel, uint32_t green_channel, uint32_t blue_channel,
            uint32_t pwm_max_value = 1000);
 
     void init();
