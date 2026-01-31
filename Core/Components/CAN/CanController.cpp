@@ -51,14 +51,14 @@ bool CanController::sendRtr(uint32_t id, uint8_t length, CanIdType idType) {
     return getInstance().sendInternal(id, data, idType, true);
 }
 
-// メッセージハンドラ
+// メッセージハンドラ登録
 void CanController::onReceive(uint32_t id, CanMessageHandler handler) { getInstance().messageHandlers_[id] = handler; }
 
 void CanController::onReceiveAny(CanMessageHandler handler) { getInstance().globalHandler_ = handler; }
 
 void CanController::onError(CanErrorHandler handler) { getInstance().errorHandler_ = handler; }
 
-// 内部送信実装
+// 内部送信実装（同期送信）
 bool CanController::sendInternal(uint32_t id, const std::vector<uint8_t> &data, CanIdType idType, bool isRtr) {
     if (!isInitialized_ || data.size() > 8)
         return false;

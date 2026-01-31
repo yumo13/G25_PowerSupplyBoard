@@ -33,18 +33,21 @@ using CanErrorHandler = std::function<void(uint32_t errorCode)>;
 
 class CanController {
 public:
-    // シングルトンパターン
+    // シングルトン
     static CanController &getInstance();
     static void initialize(CAN_HandleTypeDef *hcan);
 
-    // 送信関数
+    // 送信関数（同期）
     static bool send(uint32_t id, const std::vector<uint8_t> &data, CanIdType idType = CanIdType::STANDARD);
+    // 送信関数（非同期）
     static bool sendAsync(uint32_t id, const std::vector<uint8_t> &data, CanIdType idType = CanIdType::STANDARD);
+    // リモートフレーム送信
     static bool sendRtr(uint32_t id, uint8_t length, CanIdType idType = CanIdType::STANDARD);
 
     // メッセージハンドラ登録
     static void onReceive(uint32_t id, CanMessageHandler handler);
-    static void onReceiveAny(CanMessageHandler handler); // 全メッセージ
+    // すべてのメッセージを受け取るハンドラ
+    static void onReceiveAny(CanMessageHandler handler);
     static void onError(CanErrorHandler handler);
 
     // ステータス取得

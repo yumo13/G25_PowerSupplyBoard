@@ -1,6 +1,7 @@
 #include "LedTest.h"
 #include <math.h>
 
+// テスト用HSV→RGB変換
 void hsvToRgb(float h, float s, float v, uint8_t *r, uint8_t *g, uint8_t *b) {
     int i = (int)(h / 60.0f) % 6;
     float f = (h / 60.0f) - i;
@@ -53,6 +54,7 @@ void hsvToRgb(float h, float s, float v, uint8_t *r, uint8_t *g, uint8_t *b) {
     *b = (uint8_t)(blue * 255.0f);
 }
 
+// 基本色を順に点灯
 void testLedBasicColors(RgbLed &led) {
     led.setColor(255, 0, 0);
     HAL_Delay(1000);
@@ -67,6 +69,7 @@ void testLedBasicColors(RgbLed &led) {
     HAL_Delay(500);
 }
 
+// 各色チャンネルをフェード
 void testLedFade(RgbLed &led) {
     const int delay_ms = 5;
 
@@ -101,6 +104,7 @@ void testLedFade(RgbLed &led) {
     }
 }
 
+// HSV変換でレインボー表示
 void testLedRainbow(RgbLed &led) {
     const int delay_ms = 25;
 
@@ -114,6 +118,7 @@ void testLedRainbow(RgbLed &led) {
     }
 }
 
+// 全テストを順に実行
 void testLedAll(RgbLed &led) {
     testLedBasicColors(led);
     testLedFade(led);

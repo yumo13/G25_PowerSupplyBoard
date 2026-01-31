@@ -18,12 +18,14 @@ void RgbLed::init() {
     HAL_TIM_PWM_Start(htim_, green_channel_);
     HAL_TIM_PWM_Start(htim_, blue_channel_);
 
+    // アクティブロー: 比較値最大で消灯
     __HAL_TIM_SET_COMPARE(htim_, red_channel_, pwm_max_value_);
     __HAL_TIM_SET_COMPARE(htim_, green_channel_, pwm_max_value_);
     __HAL_TIM_SET_COMPARE(htim_, blue_channel_, pwm_max_value_);
 }
 
 void RgbLed::setColor(uint8_t r, uint8_t g, uint8_t b) {
+    // アクティブローPWM（0=最大点灯, pwm_max_value=消灯）
     uint32_t r_pulse = (pwm_max_value_ * (255 - r)) / 255;
     uint32_t g_pulse = (pwm_max_value_ * (255 - g)) / 255;
     uint32_t b_pulse = (pwm_max_value_ * (255 - b)) / 255;

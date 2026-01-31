@@ -1,6 +1,5 @@
 #include "cpp_main.h"
 #include "CanController.h"
-#include "LedTest.h"
 #include "RgbLed.h"
 #include "can.h"
 #include "tim.h"
@@ -13,10 +12,10 @@ void cpp_main(void) {
     RgbLed led(&htim3);
     led.init();
 
-    // CANコントローラを初期化
+    // CANコントローラ初期化
     CanController::initialize(&hcan);
 
-    // CANメッセージハンドラを設定
+    // CANメッセージハンドラ登録
     CanController::onReceive(0x100, [&led](const CanMessage &msg) {
         // ID 0x100: RGB LED制御
         if (msg.data.size() >= 3) {
